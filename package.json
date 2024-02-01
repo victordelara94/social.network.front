@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "jest --watchAll",
     "test:w": "jest --watchAll --coverage",
-    "test:prod": "jest --watchAll --coverage --watchAll=false --passWithNoTests"
+    "test:prod": "jest --watchAll --coverage --watchAll=false --passWithNoTests",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -34,7 +35,8 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "identity-obj-proxy": "^3.0.0",
-    "sass": "^1.66.1"
+    "sass": "^1.66.1",
+    "husky": "^8.0.0"
   },
   "prettier": {
     "singleQuote": true
