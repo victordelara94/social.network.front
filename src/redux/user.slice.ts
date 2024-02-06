@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { User } from '../models/user.model';
 import {
+  loginThunk,
+  registerThunk,
   userDeleteThunk,
-  userUpdateThunk,
-  usersCreateThunk,
   usersLoadThunk,
 } from './user.thunks';
 
@@ -37,14 +37,14 @@ export const userSlice = createSlice({
       state.loading = 'loading';
     });
     builder.addCase(
-      usersCreateThunk.fulfilled,
+      registerThunk.fulfilled,
       (state, { payload }: { payload: User }) => {
         state.users.push(payload);
       }
     );
 
     builder.addCase(
-      userUpdateThunk.fulfilled,
+      loginThunk.fulfilled,
       (state, { payload }: { payload: User }) => {
         state.users = state.users.map((user) =>
           user.id === payload.id ? payload : user
