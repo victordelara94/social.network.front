@@ -1,7 +1,7 @@
 import { User } from '../models/user.model';
 import { Repository } from './repository';
 
-export class ApiUsersRepository implements Repository<User> {
+export class UsersRepository implements Repository<User> {
   urlBase: string;
   constructor(urlBase: string) {
     this.urlBase = urlBase;
