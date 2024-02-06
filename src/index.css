@@ -1,1 +1,39 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'arial', sans-serif;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  overflow-x: hidden;
+}
 
+div,
+span,
+h1,
+h2,
+h3,
+p,
+a,
+img,
+ol,
+ul,
+li,
+form,
+label,
+legend,
+footer,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+ol,
+ul {
+  list-style: none;
+}

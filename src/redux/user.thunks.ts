@@ -10,29 +10,18 @@ export const usersLoadThunk = createAsyncThunk<User[], UsersRepository>(
   }
 );
 
-export const usersCreateThunk = createAsyncThunk<
+export const registerThunk = createAsyncThunk<
   User,
-  { repo: UsersRepository; userNoId: Omit<User, 'id'> }
+  { repo: UsersRepository; userNoId: FormData }
 >('user/add', async ({ repo, userNoId }) => {
-  const user = repo.create(userNoId);
+  const user = repo.register(userNoId);
   return user;
 });
 
-export const userUpdateThunk = createAsyncThunk<
+export const loginThunk = createAsyncThunk<
   User,
   { repo: UsersRepository; user: User }
 >('user/update', async ({ repo, user }) => {
   const updateuser = repo.update(user.id, user);
   return updateuser;
-});
-
-export const userDeleteThunk = createAsyncThunk<
-  User['id'],
-  {
-    repo: UsersRepository;
-    user: User;
-  }
->('user/delete', async ({ repo, user }) => {
-  repo.delete(user.id);
-  return user.id;
 });

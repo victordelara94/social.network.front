@@ -25,7 +25,7 @@ export class UsersRepository implements Repository<User> {
     return data;
   }
 
-  async create(item: Omit<User, 'id'>): Promise<User> {
+  async register(item: FormData): Promise<User> {
     const response = await fetch(this.urlBase, {
       method: 'POST',
       body: JSON.stringify(item),
