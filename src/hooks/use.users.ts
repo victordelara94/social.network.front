@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { User } from '../models/user.model';
+import { Login } from '../models/user.model';
 import {
   loginThunk,
   registerThunk,
@@ -21,8 +21,8 @@ export function useUsers() {
     usersDispatch(registerThunk({ repo, userNoId }));
   };
 
-  const loginUser = async (user: User) => {
-    usersDispatch(loginThunk({ repo, user }));
+  const loginUser = async (login: Login) => {
+    usersDispatch(loginThunk({ repo, login }));
   };
 
   const loadUsers = useCallback(async () => {
@@ -31,6 +31,7 @@ export function useUsers() {
 
   return {
     users: usersState.users,
+    actualUser: usersState.actualUser,
     registerUser,
     loginUser,
     loadUsers,

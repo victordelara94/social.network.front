@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { User } from '../models/user.model';
+import { Login, User } from '../models/user.model';
 import { UsersRepository } from '../repositories/user.repository';
+import { Logued } from '../types/types';
 
 export const usersLoadThunk = createAsyncThunk<User[], UsersRepository>(
   'user/load',
@@ -19,9 +20,9 @@ export const registerThunk = createAsyncThunk<
 });
 
 export const loginThunk = createAsyncThunk<
-  User,
-  { repo: UsersRepository; user: User }
->('user/update', async ({ repo, user }) => {
-  const updateuser = repo.update(user.id, user);
+  Logued,
+  { repo: UsersRepository; login: Login }
+>('user/update', async ({ repo, login }) => {
+  const updateuser = repo.login(login);
   return updateuser;
 });

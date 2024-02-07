@@ -1,4 +1,5 @@
-import { User } from '../models/user.model';
+import { Login, User } from '../models/user.model';
+import { Logued } from '../types/types';
 import { Repository } from './repository';
 
 export class UsersRepository implements Repository<User> {
@@ -26,12 +27,10 @@ export class UsersRepository implements Repository<User> {
   }
 
   async register(item: FormData): Promise<User> {
-    const response = await fetch(this.urlBase, {
+    const url = this.urlBase + '/register';
+    const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(item),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      body: item,
     });
     if (!response.ok)
       throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -39,8 +38,8 @@ export class UsersRepository implements Repository<User> {
     return data;
   }
 
-  async update(id: string, item: Partial<User>): Promise<User> {
-    const url = this.urlBase + '/' + id;
+  async login(item: Login): Promise<Logued> {
+    const url = this.urlBase + '/login';
     const response = await fetch(url, {
       method: 'PATCH',
       body: JSON.stringify(item),
