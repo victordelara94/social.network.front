@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useUsers } from '../../hooks/use.users';
+import Search from '../search/search';
 
 const Home = () => {
   const { loadUsers, users, actualUser } = useUsers();
@@ -19,6 +20,7 @@ const Home = () => {
 
   return (
     <main>
+      <Search></Search>
       <ul>
         {users.map((user) => (
           <li key={user.id}>{user.userName}</li>

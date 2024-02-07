@@ -30,7 +30,7 @@ export const usersLoadThunk = createAsyncThunk<
 export const userSearchThunk = createAsyncThunk<
   User,
   { repo: UsersRepository; token: string; key: string; value: unknown }
->('user/load', async ({ repo, token, key, value }) => {
+>('user/search', async ({ repo, token, key, value }) => {
   const users = await repo.search(token, key, value);
   return users;
 });

@@ -42,6 +42,7 @@ export function useUsers() {
   return {
     users: usersState.users,
     actualUser: usersState.actualUser,
+    searchedUser: usersState.searchedUser,
     registerUser,
     loginUser,
     loadUsers,

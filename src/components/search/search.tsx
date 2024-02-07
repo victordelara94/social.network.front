@@ -1,9 +1,17 @@
 import { SyntheticEvent } from 'react';
-import styles from './login.module.scss';
+import { useUsers } from '../../hooks/use.users';
+import styles from './search.module.scss';
 
-const LoginForm = () => {
+const Search = () => {
+  const { searchUser, searchedUser, actualUser } = useUsers();
   const handleForm = async (ev: SyntheticEvent) => {
     ev.preventDefault();
+    const formElement = ev.currentTarget as HTMLFormElement;
+    const formData = new FormData(formElement);
+    const value = formData.get('userName');
+    const key = (formElement.firstChild as HTMLInputElement).name;
+    await searchUser(actualUser.token, key, value);
+    console.log(searchedUser);
   };
 
   return (
@@ -16,10 +24,10 @@ const LoginForm = () => {
       />
 
       <button type="submit" className={styles.buttonSubmit}>
-        Login
+        Search
       </button>
     </form>
   );
 };
 
-export default LoginForm;
+export default Search;
