@@ -1,15 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { User } from '../models/user.model';
 import { Logued } from '../types/types';
-import { loginThunk, registerThunk, usersLoadThunk } from './user.thunks';
+import {
+  loginThunk,
+  registerThunk,
+  userSearchThunk,
+  usersLoadThunk,
+} from './user.thunks';
 
 export type UserState = {
   users: User[];
+  searchedUser: User;
   actualUser: Logued;
   loading: 'loading' | 'load';
 };
 const initialState: UserState = {
   users: [],
+  searchedUser: {} as User,
   actualUser: { user: {} as User, token: '' },
   loading: 'loading',
 };
@@ -26,9 +33,6 @@ export const userSlice = createSlice({
       }
     );
 
-    builder.addCase(usersLoadThunk.pending, (state) => {
-      state.loading = 'loading';
-    });
     builder.addCase(
       registerThunk.fulfilled,
       (state, { payload }: { payload: User }) => {
@@ -40,6 +44,12 @@ export const userSlice = createSlice({
       loginThunk.fulfilled,
       (state, { payload }: { payload: Logued }) => {
         state.actualUser = payload;
+      }
+    );
+    builder.addCase(
+      userSearchThunk.fulfilled,
+      (state, { payload }: { payload: User }) => {
+        state.searchedUser = payload;
       }
     );
   },
