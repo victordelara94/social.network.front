@@ -3,7 +3,8 @@ import { useUsers } from '../../hooks/use.users';
 import styles from './search.module.scss';
 
 const Search = () => {
-  const { searchUser, searchedUser, actualUser } = useUsers();
+  const { searchUser, actualUser } = useUsers();
+
   const handleForm = async (ev: SyntheticEvent) => {
     ev.preventDefault();
     const formElement = ev.currentTarget as HTMLFormElement;
@@ -11,7 +12,6 @@ const Search = () => {
     const value = formData.get('userName');
     const key = (formElement.firstChild as HTMLInputElement).name;
     await searchUser(actualUser.token, key, value);
-    console.log(searchedUser);
   };
 
   return (
