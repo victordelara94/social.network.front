@@ -1,15 +1,15 @@
 import { SyntheticEvent } from 'react';
-import { Link } from 'react-router-dom';
-// import { useUsers } from '../../hooks/use.users';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUsers } from '../../hooks/use.users';
 import { Login } from '../../models/user.model';
 import styles from './login.module.scss';
 
 const LoginForm = () => {
-  const { loginUser, actualUser } = useUsers();
-
+  const { loginUser } = useUsers();
+  const navigate = useNavigate();
   const handleForm = async (ev: SyntheticEvent) => {
     ev.preventDefault();
+
     const formElement = ev.currentTarget as HTMLFormElement;
     const formData = new FormData(formElement);
     const userName = formData.get('userName') as string;
@@ -20,7 +20,7 @@ const LoginForm = () => {
       password,
     };
     await loginUser(user);
-    console.log(actualUser);
+    navigate('/home');
   };
 
   return (

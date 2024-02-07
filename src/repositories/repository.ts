@@ -3,7 +3,7 @@ import { Logued } from '../types/types';
 
 export interface Repository<T extends { id: number | string }> {
   getById?(id: T['id']): Promise<T>;
-  getAll?(): Promise<T[]>;
+  getAll?(token: string): Promise<T[]>;
   create?(item: Omit<T, 'id'>): Promise<T>;
   register?(item: FormData): Promise<User>;
   login?(item: Login): Promise<Logued>;

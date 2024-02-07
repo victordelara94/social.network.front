@@ -25,9 +25,12 @@ export function useUsers() {
     usersDispatch(loginThunk({ repo, login }));
   };
 
-  const loadUsers = useCallback(async () => {
-    usersDispatch(usersLoadThunk(repo));
-  }, [repo, usersDispatch]);
+  const loadUsers = useCallback(
+    async (token: string) => {
+      usersDispatch(usersLoadThunk({ repo, token: token }));
+    },
+    [repo, usersDispatch]
+  );
 
   return {
     users: usersState.users,

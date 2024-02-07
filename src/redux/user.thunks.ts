@@ -3,13 +3,13 @@ import { Login, User } from '../models/user.model';
 import { UsersRepository } from '../repositories/user.repository';
 import { Logued } from '../types/types';
 
-export const usersLoadThunk = createAsyncThunk<User[], UsersRepository>(
-  'user/load',
-  async (repo) => {
-    const users = await repo.getAll();
-    return users;
-  }
-);
+export const usersLoadThunk = createAsyncThunk<
+  User[],
+  { repo: UsersRepository; token: string }
+>('user/load', async ({ repo, token }) => {
+  const users = await repo.getAll(token);
+  return users;
+});
 
 export const registerThunk = createAsyncThunk<
   User,

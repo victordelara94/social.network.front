@@ -8,8 +8,14 @@ export class UsersRepository implements Repository<User> {
     this.urlBase = urlBase;
   }
 
-  async getAll(): Promise<User[]> {
-    const response = await fetch(this.urlBase);
+  async getAll(token: string): Promise<User[]> {
+    const response = await fetch(this.urlBase, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Agrega el token JWT al encabezado
+        'Content-Type': 'application/json',
+        // Otros encabezados que puedas necesitar...
+      },
+    });
     if (!response.ok)
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     const data = await response.json();
