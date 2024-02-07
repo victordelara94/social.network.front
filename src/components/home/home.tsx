@@ -10,13 +10,15 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await loadUsers(actualUser.token);
+        if (actualUser.token) {
+          await loadUsers(actualUser.token);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, [loadUsers, actualUser]);
+  }, [loadUsers, actualUser.token]);
 
   return (
     <main>

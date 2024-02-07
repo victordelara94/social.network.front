@@ -31,7 +31,7 @@ export class UsersRepository implements Repository<User> {
     return data;
   }
   async search(token: string, key: string, value: unknown): Promise<User> {
-    const url = this.urlBase + `/?key=${key}&value=${value}`;
+    const url = this.urlBase + `/search?key=${key}&value=${value}`;
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
