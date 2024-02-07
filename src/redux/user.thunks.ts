@@ -1,14 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { User } from '../models/user.model';
+import { Login, User } from '../models/user.model';
 import { UsersRepository } from '../repositories/user.repository';
+import { Logued } from '../types/types';
 
-export const usersLoadThunk = createAsyncThunk<User[], UsersRepository>(
-  'user/load',
-  async (repo) => {
-    const users = await repo.getAll();
-    return users;
-  }
-);
+export const usersLoadThunk = createAsyncThunk<
+  User[],
+  { repo: UsersRepository; token: string }
+>('user/load', async ({ repo, token }) => {
+  const users = await repo.getAll(token);
+  return users;
+});
 
 export const registerThunk = createAsyncThunk<
   User,
@@ -19,9 +20,9 @@ export const registerThunk = createAsyncThunk<
 });
 
 export const loginThunk = createAsyncThunk<
-  User,
-  { repo: UsersRepository; user: User }
->('user/update', async ({ repo, user }) => {
-  const updateuser = repo.update(user.id, user);
+  Logued,
+  { repo: UsersRepository; login: Login }
+>('user/update', async ({ repo, login }) => {
+  const updateuser = repo.login(login);
   return updateuser;
 });
