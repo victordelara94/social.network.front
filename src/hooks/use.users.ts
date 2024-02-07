@@ -4,6 +4,7 @@ import { Login } from '../models/user.model';
 import {
   loginThunk,
   registerThunk,
+  userSearchThunk,
   usersLoadThunk,
 } from '../redux/user.thunks';
 import { UsersRepository } from '../repositories/user.repository';
@@ -31,12 +32,20 @@ export function useUsers() {
     },
     [repo, usersDispatch]
   );
+  const searchUser = useCallback(
+    async (token: string, key: string, value: unknown) => {
+      usersDispatch(userSearchThunk({ repo, token, key, value }));
+    },
+    [repo, usersDispatch]
+  );
 
   return {
     users: usersState.users,
     actualUser: usersState.actualUser,
+    searchedUser: usersState.searchedUser,
     registerUser,
     loginUser,
     loadUsers,
+    searchUser,
   };
 }

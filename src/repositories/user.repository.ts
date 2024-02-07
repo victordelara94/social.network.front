@@ -11,9 +11,8 @@ export class UsersRepository implements Repository<User> {
   async getAll(token: string): Promise<User[]> {
     const response = await fetch(this.urlBase, {
       headers: {
-        Authorization: `Bearer ${token}`, // Agrega el token JWT al encabezado
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
-        // Otros encabezados que puedas necesitar...
       },
     });
     if (!response.ok)
@@ -23,9 +22,22 @@ export class UsersRepository implements Repository<User> {
     return data;
   }
 
-  async get(id: string): Promise<User> {
+  async getById(id: string): Promise<User> {
     const url = this.urlBase + '/' + id;
     const response = await fetch(url);
+    if (!response.ok)
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    const data = await response.json();
+    return data;
+  }
+  async search(token: string, key: string, value: unknown): Promise<User> {
+    const url = this.urlBase + `/?key=${key}&value=${value}`;
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
     if (!response.ok)
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     const data = await response.json();

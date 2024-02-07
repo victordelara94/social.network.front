@@ -3,14 +3,6 @@ import { Login, User } from '../models/user.model';
 import { UsersRepository } from '../repositories/user.repository';
 import { Logued } from '../types/types';
 
-export const usersLoadThunk = createAsyncThunk<
-  User[],
-  { repo: UsersRepository; token: string }
->('user/load', async ({ repo, token }) => {
-  const users = await repo.getAll(token);
-  return users;
-});
-
 export const registerThunk = createAsyncThunk<
   User,
   { repo: UsersRepository; userNoId: FormData }
@@ -25,4 +17,20 @@ export const loginThunk = createAsyncThunk<
 >('user/update', async ({ repo, login }) => {
   const updateuser = repo.login(login);
   return updateuser;
+});
+
+export const usersLoadThunk = createAsyncThunk<
+  User[],
+  { repo: UsersRepository; token: string }
+>('user/load', async ({ repo, token }) => {
+  const users = await repo.getAll(token);
+  return users;
+});
+
+export const userSearchThunk = createAsyncThunk<
+  User,
+  { repo: UsersRepository; token: string; key: string; value: unknown }
+>('user/search', async ({ repo, token, key, value }) => {
+  const users = await repo.search(token, key, value);
+  return users;
 });
