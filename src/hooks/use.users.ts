@@ -4,8 +4,8 @@ import { Login } from '../models/user.model';
 import {
   loginThunk,
   registerThunk,
+  userLoadAllThunk,
   userSearchThunk,
-  usersLoadThunk,
 } from '../redux/user/user.thunks';
 import { UsersRepository } from '../repositories/user.repository';
 import { AppDispatch, RootState } from '../store/store';
@@ -28,7 +28,7 @@ export function useUsers() {
 
   const loadUsers = useCallback(
     async (token: string) => {
-      usersDispatch(usersLoadThunk({ repo, token: token }));
+      usersDispatch(userLoadAllThunk({ repo, token: token }));
     },
     [repo, usersDispatch]
   );

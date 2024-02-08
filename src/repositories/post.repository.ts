@@ -25,7 +25,7 @@ export class PostsRepository implements Repository<Post> {
     return data;
   }
 
-  async getAll(): Promise<Post[]> {
+  async getFriendsPosts(): Promise<Post[]> {
     const response = await fetch(this.urlBase, {
       headers: {
         Authorization: `Bearer ${this.token}`,

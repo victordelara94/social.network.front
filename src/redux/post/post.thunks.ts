@@ -15,7 +15,7 @@ export const postsLoadThunk = createAsyncThunk<
   Post[],
   { repo: PostsRepository }
 >('post/load', async ({ repo }) => {
-  const posts = await repo.getAll();
+  const posts = await repo.getFriendsPosts();
   return posts;
 });
 
