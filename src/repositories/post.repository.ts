@@ -68,6 +68,7 @@ export class PostsRepository implements Repository<Post> {
     const data = await response.json();
     return data;
   }
+
   async delete(id: string): Promise<void> {
     const url = this.urlBase + '/' + id;
     const response = await fetch(url, {
