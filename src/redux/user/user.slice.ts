@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from '../models/user.model';
-import { Logued } from '../types/types';
+import { User } from '../../models/user.model';
+import { Logued } from '../../types/types';
 import {
   loginThunk,
   registerThunk,

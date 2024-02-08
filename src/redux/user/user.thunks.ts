@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Login, User } from '../models/user.model';
-import { UsersRepository } from '../repositories/user.repository';
-import { Logued } from '../types/types';
+import { Login, User } from '../../models/user.model';
+import { UsersRepository } from '../../repositories/user.repository';
+import { Logued } from '../../types/types';
 
 export const registerThunk = createAsyncThunk<
   User,

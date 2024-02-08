@@ -6,7 +6,7 @@ import {
   registerThunk,
   userSearchThunk,
   usersLoadThunk,
-} from '../redux/user.thunks';
+} from '../redux/user/user.thunks';
 import { UsersRepository } from '../repositories/user.repository';
 import { AppDispatch, RootState } from '../store/store';
 
