@@ -39,7 +39,7 @@ export class PostsRepository implements Repository<Post> {
     return data;
   }
 
-  async searchUserPost(userId: User['id']): Promise<Post> {
+  async searchUserPosts(userId: User['id']): Promise<Post[]> {
     const url = this.urlBase + `/user/${userId}`;
     const response = await fetch(url, {
       headers: {

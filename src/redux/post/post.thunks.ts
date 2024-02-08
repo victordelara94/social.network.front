@@ -3,7 +3,7 @@ import { Post } from '../../models/post.model';
 import { User } from '../../models/user.model';
 import { PostsRepository } from '../../repositories/post.repository';
 
-export const registerThunk = createAsyncThunk<
+export const postCreateThunk = createAsyncThunk<
   Post,
   { repo: PostsRepository; postNoId: FormData }
 >('post/add', async ({ repo, postNoId }) => {
@@ -19,11 +19,11 @@ export const postsLoadThunk = createAsyncThunk<
   return posts;
 });
 
-export const postSearchThunk = createAsyncThunk<
-  Post,
+export const postsSearchThunk = createAsyncThunk<
+  Post[],
   { repo: PostsRepository; userId: User['id'] }
 >('post/search', async ({ repo, userId }) => {
-  const posts = await repo.searchUserPost(userId);
+  const posts = await repo.searchUserPosts(userId);
   return posts;
 });
 
