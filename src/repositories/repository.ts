@@ -5,7 +5,7 @@ export interface Repository<T extends { id: number | string }> {
   getById?(id: T['id']): Promise<T>;
   search?(token: string, key: string, value: unknown): Promise<T>;
   getAll?(token: string): Promise<T[]>;
-  create?(item: Omit<T, 'id'>): Promise<T>;
+  create?(item: FormData): Promise<T>;
   register?(item: FormData): Promise<User>;
   login?(item: Login): Promise<Logued>;
   update?(id: T['id'], item: Partial<T>): Promise<T>;
