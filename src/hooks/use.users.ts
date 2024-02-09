@@ -1,11 +1,13 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Login } from '../models/user.model';
+import { Login, User } from '../models/user.model';
 import {
   loginThunk,
   registerThunk,
+  userFollowThunk,
+  userLoadAllThunk,
   userSearchThunk,
-  usersLoadThunk,
+  userUnfollowThunk,
 } from '../redux/user/user.thunks';
 import { UsersRepository } from '../repositories/user.repository';
 import { AppDispatch, RootState } from '../store/store';
@@ -28,13 +30,25 @@ export function useUsers() {
 
   const loadUsers = useCallback(
     async (token: string) => {
-      usersDispatch(usersLoadThunk({ repo, token: token }));
+      usersDispatch(userLoadAllThunk({ repo, token: token }));
     },
     [repo, usersDispatch]
   );
   const searchUser = useCallback(
     async (token: string, key: string, value: unknown) => {
       usersDispatch(userSearchThunk({ repo, token, key, value }));
+    },
+    [repo, usersDispatch]
+  );
+  const followUser = useCallback(
+    async (userToFollow: User, token: string) => {
+      usersDispatch(userFollowThunk({ repo, userToFollow, token }));
+    },
+    [repo, usersDispatch]
+  );
+  const unfollowUser = useCallback(
+    async (userToUnfollow: User, token: string) => {
+      usersDispatch(userUnfollowThunk({ repo, userToUnfollow, token }));
     },
     [repo, usersDispatch]
   );
@@ -47,5 +61,7 @@ export function useUsers() {
     loginUser,
     loadUsers,
     searchUser,
+    followUser,
+    unfollowUser,
   };
 }

@@ -4,8 +4,10 @@ import { Logued } from '../../types/types';
 import {
   loginThunk,
   registerThunk,
+  userFollowThunk,
+  userLoadAllThunk,
   userSearchThunk,
-  usersLoadThunk,
+  userUnfollowThunk,
 } from './user.thunks';
 
 export type UserState = {
@@ -26,7 +28,7 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
-      usersLoadThunk.fulfilled,
+      userLoadAllThunk.fulfilled,
       (state, { payload }: { payload: User[] }) => {
         state.users = payload;
         state.loading = 'load';
@@ -48,8 +50,22 @@ export const userSlice = createSlice({
     );
     builder.addCase(
       userSearchThunk.fulfilled,
+      (state, { payload }: { payload: User[] }) => {
+        state.searchedUser = payload[0];
+      }
+    );
+    builder.addCase(
+      userFollowThunk.fulfilled,
       (state, { payload }: { payload: User }) => {
-        state.searchedUser = payload;
+        console.log(payload);
+        state.actualUser.user = payload;
+      }
+    );
+    builder.addCase(
+      userUnfollowThunk.fulfilled,
+      (state, { payload }: { payload: User }) => {
+        console.log(payload);
+        state.actualUser.user = payload;
       }
     );
   },
