@@ -5,7 +5,7 @@ export type Post = {
   id: string;
   title: string;
   description: string;
-  user: User;
+  author: User;
   image: ImgData;
   isPrivate: boolean;
   likes: number;
