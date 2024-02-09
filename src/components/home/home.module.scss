@@ -1,0 +1,24 @@
+.main {
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  .section {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
+    .likes-box {
+      display: flex;
+      gap: 5px;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    .post-image {
+      object-fit: cover;
+      width: 250px;
+      height: 250px;
+    }
+  }
+}
