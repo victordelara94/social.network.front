@@ -30,18 +30,35 @@ export const userLoadAllThunk = createAsyncThunk<
 export const userLoadOneThunk = createAsyncThunk<
   User,
   { repo: UsersRepository; token: string; id: User['id'] }
->('user/search', async ({ repo, id, token }) => {
+>('user/loadOne', async ({ repo, id, token }) => {
   const users = await repo.getById(id, token);
   return users;
 });
 
 export const userSearchThunk = createAsyncThunk<
-  User,
+  User[],
   { repo: UsersRepository; token: string; key: string; value: unknown }
 >('user/search', async ({ repo, token, key, value }) => {
-  const users = await repo.search(token, key, value);
-  return users;
+  const user = await repo.search(token, key, value);
+  return user;
 });
+
+export const userFollowThunk = createAsyncThunk<
+  User,
+  { repo: UsersRepository; userToFollow: User; token: string }
+>('user/follow', async ({ repo, userToFollow, token }) => {
+  const updatedUser = repo.follow(userToFollow, token);
+  return updatedUser;
+});
+
+export const userUnfollowThunk = createAsyncThunk<
+  User,
+  { repo: UsersRepository; userToUnfollow: User; token: string }
+>('user/unfollow', async ({ repo, userToUnfollow, token }) => {
+  const updatedUser = repo.unfollow(userToUnfollow, token);
+  return updatedUser;
+});
+
 export const userDeleteThunk = createAsyncThunk<
   void,
   { repo: UsersRepository; token: string; id: string }

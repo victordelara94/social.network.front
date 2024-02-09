@@ -6,10 +6,10 @@ export interface Repository<T extends { id: number | string }> {
   login?(item: Login): Promise<Logued>;
   getAll?(token: string): Promise<T[]>;
   getById?(id: T['id'], token: string): Promise<T>;
-  follow?(followed: User, token: string): Promise<User>;
-  unfollow?(unfollowed: User, token: string): Promise<User>;
+  follow?(userToFollow: User, token: string): Promise<User>;
+  unfollow?(userToUnfollow: User, token: string): Promise<User>;
   getFriendsPosts?(token: string): Promise<T[]>;
-  search?(token: string, key: string, value: unknown): Promise<T>;
+  search?(token: string, key: string, value: unknown): Promise<T[]>;
   create?(item: FormData): Promise<T>;
   update?(id: T['id'], item: Partial<T>, token?: string): Promise<T>;
   delete?(id: T['id'], token: string): Promise<void>;

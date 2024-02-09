@@ -59,7 +59,7 @@ export class UsersRepository implements Repository<User> {
     const data = await response.json();
     return data;
   }
-  async search(token: string, key: string, value: unknown): Promise<User> {
+  async search(token: string, key: string, value: unknown): Promise<User[]> {
     const url = this.urlBase + `/search?key=${key}&value=${value}`;
     const response = await fetch(url, {
       headers: {
@@ -69,14 +69,15 @@ export class UsersRepository implements Repository<User> {
     });
     if (!response.ok)
       throw new Error(`Error ${response.status}: ${response.statusText}`);
-    const data = await response.json();
+    const data: User[] = await response.json();
+    console.log(data);
     return data;
   }
-  async follow(followed: User, token: string): Promise<User> {
+  async follow(userToFollow: User, token: string): Promise<User> {
     const url = this.urlBase + '/follow';
     const response = await fetch(url, {
       method: 'PATCH',
-      body: JSON.stringify(followed),
+      body: JSON.stringify(userToFollow),
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -87,11 +88,11 @@ export class UsersRepository implements Repository<User> {
     const data = await response.json();
     return data;
   }
-  async unfollow(unfollowed: User, token: string): Promise<User> {
-    const url = this.urlBase + '/follow';
+  async unfollow(userToUnfollow: User, token: string): Promise<User> {
+    const url = this.urlBase + '/unfollow';
     const response = await fetch(url, {
       method: 'PATCH',
-      body: JSON.stringify(unfollowed),
+      body: JSON.stringify(userToUnfollow),
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -102,7 +103,25 @@ export class UsersRepository implements Repository<User> {
     const data = await response.json();
     return data;
   }
-
+  async update(
+    id: string,
+    item: Partial<User>,
+    token?: string | undefined
+  ): Promise<User> {
+    const url = this.urlBase + `/${id}`;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      body: JSON.stringify(item),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok)
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    const data = await response.json();
+    return data;
+  }
   async delete(token: string, id: string): Promise<void> {
     const url = this.urlBase + '/' + id;
     const response = await fetch(url, {
