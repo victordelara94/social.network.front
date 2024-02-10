@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Login, User } from '../models/user.model';
+import { actions } from '../redux/user/user.slice';
 import {
   loginThunk,
   registerThunk,
@@ -11,7 +12,6 @@ import {
 } from '../redux/user/user.thunks';
 import { UsersRepository } from '../repositories/user.repository';
 import { AppDispatch, RootState } from '../store/store';
-
 export const urlBaseUsers = 'http://localhost:3333/users';
 
 export function useUsers() {
@@ -28,6 +28,9 @@ export function useUsers() {
     usersDispatch(loginThunk({ repo, login }));
   };
 
+  const setLogOut = async () => {
+    usersDispatch(actions.logOut());
+  };
   const loadUsers = useCallback(
     async (token: string) => {
       usersDispatch(userLoadAllThunk({ repo, token: token }));
@@ -62,6 +65,7 @@ export function useUsers() {
     loadUsers,
     searchUser,
     followUser,
+    setLogOut,
     unfollowUser,
   };
 }
