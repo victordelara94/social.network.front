@@ -31,6 +31,9 @@ export function useUsers() {
   const setLogOut = async () => {
     usersDispatch(actions.logOut());
   };
+  const deleteSearchedUser = async () => {
+    usersDispatch(actions.cleanSearchedUser());
+  };
   const loadUsers = useCallback(
     async (token: string) => {
       usersDispatch(userLoadAllThunk({ repo, token: token }));
@@ -67,5 +70,6 @@ export function useUsers() {
     followUser,
     setLogOut,
     unfollowUser,
+    deleteSearchedUser,
   };
 }

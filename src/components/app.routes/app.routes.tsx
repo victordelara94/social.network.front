@@ -5,6 +5,7 @@ const Register = lazy(() => import('../register/register'));
 const Login = lazy(() => import('../login/login'));
 const Home = lazy(() => import('../home/home'));
 const CreatePost = lazy(() => import('../create.post.form/create.post.form'));
+const UserDetail = lazy(() => import('../user.detail/user.detail'));
 export const AppRoutes = () => {
   const paths = [
     { path: '' },
@@ -12,6 +13,7 @@ export const AppRoutes = () => {
     { path: '/login' },
     { path: '/home' },
     { path: '/create-posts' },
+    { path: '/user-detail' },
     { path: '*' },
   ];
 
@@ -23,7 +25,8 @@ export const AppRoutes = () => {
         <Route path={paths[2].path} element={<Login></Login>}></Route>
         <Route path={paths[3].path} element={<Home></Home>}></Route>
         <Route path={paths[4].path} element={<CreatePost></CreatePost>}></Route>
-        <Route path={paths[5].path} element={<Navigate to="/login" />}></Route>
+        <Route path={paths[5].path} element={<UserDetail></UserDetail>}></Route>
+        <Route path={paths[6].path} element={<Navigate to="/login" />}></Route>
       </Routes>
     </Suspense>
   );

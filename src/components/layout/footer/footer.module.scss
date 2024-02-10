@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  height: 25px;
+  border-top: 2px solid white;
+  .address {
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+}

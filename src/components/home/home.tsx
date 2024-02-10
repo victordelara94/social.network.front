@@ -19,7 +19,7 @@ const Home = () => {
   }, [actualUser, loadPosts]);
 
   return (
-    <main className={styles['main']}>
+    <div className={styles['home']}>
       <Search></Search>
       {friendsPosts.length === 0 && <span>Add friends to see their posts</span>}
       {friendsPosts.length > 0 &&
@@ -45,7 +45,7 @@ const Home = () => {
             </span>
           </section>
         ))}
-    </main>
+    </div>
   );
 };
 

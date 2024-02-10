@@ -17,12 +17,13 @@ const CreatePostForm = () => {
     <form onSubmit={handleForm}>
       <input type="text" name="title" placeholder="Post title"></input>
       <textarea name="description" placeholder="Description"></textarea>
-      <input
-        type="file"
-        name="image"
-        placeholder="Select your best image"
-      ></input>
-
+      <div className="file-box">
+        <input
+          type="file"
+          name="image"
+          placeholder="Select your best image"
+        ></input>
+      </div>
       <button type="submit">Post</button>
     </form>
   );

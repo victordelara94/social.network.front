@@ -24,30 +24,34 @@ const LoginForm = () => {
   };
 
   return (
-    <main>
-      <form onSubmit={handleForm} className={styles.loginForm}>
-        <h2>Login</h2>
-        <label>Username:</label>
+    <div>
+      <form onSubmit={handleForm} className={styles['login-form']}>
         <input
+          placeholder="User name"
           className={styles.textInput}
           type="text"
           name="userName"
           required
         />
-        <label>Password:</label>
-        <input className={styles.textInput} type="password" name="password" />
+
+        <input
+          placeholder="Password"
+          className={styles.textInput}
+          type="password"
+          name="password"
+        />
+
         <button type="submit" className={styles.buttonSubmit}>
           Login
         </button>
-
-        <div>
-          If you are not registered go to:
-          <Link to="/register" className="register">
-            Register
-          </Link>
-        </div>
       </form>
-    </main>
+      <div>
+        If you are not registered go to:
+        <Link to="/register" className="register">
+          Register
+        </Link>
+      </div>
+    </div>
   );
 };
 

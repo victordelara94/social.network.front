@@ -1,4 +1,5 @@
-import { SyntheticEvent, useEffect } from 'react';
+import { SyntheticEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { useUsers } from '../../hooks/use.users';
 import styles from './search.module.scss';
 
@@ -24,13 +25,8 @@ const Search = () => {
     unfollowUser(searchedUser, actualUser.token);
   };
 
-  useEffect(() => {
-    // Aquí puedes realizar acciones adicionales después de seguir o dejar de seguir,
-    // como cargar nuevamente la lista de usuarios, etc.
-  }, [searchedUser]);
-
   return (
-    <form onSubmit={handleForm} className={styles.loginForm}>
+    <form onSubmit={handleForm} className={styles['search-form']}>
       <input
         className={styles.textInput}
         type="text"
@@ -44,7 +40,9 @@ const Search = () => {
       {searchedUser.id && searchedUser.id !== actualUser.user.id && (
         <div>
           <h3>Searched user</h3>
-          <span>{searchedUser.userName}</span>
+          <span>
+            <Link to={'/user-detail'}>{searchedUser.userName}</Link>
+          </span>
           {!actualUser.user.following.find(
             (user) => user.id === searchedUser.id
           ) && <button onClick={() => startFollow()}>Follow</button>}
