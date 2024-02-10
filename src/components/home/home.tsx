@@ -11,17 +11,17 @@ const Home = () => {
   const { actualUser } = useUsers();
   useEffect(() => {
     const fetchData = async () => {
-      if (actualUser.token) {
+      if (actualUser.token && actualUser.user.following.length > 0) {
         await loadPosts();
       }
     };
-    console.log(friendsPosts);
     fetchData();
-  }, [actualUser.token, loadPosts]);
+  }, [actualUser, loadPosts]);
 
   return (
     <main className={styles['main']}>
       <Search></Search>
+      {friendsPosts.length === 0 && <span>Add friends to see their posts</span>}
       {friendsPosts.length > 0 &&
         friendsPosts.map((post) => (
           <section className={styles['section']} key={post.id}>

@@ -10,11 +10,9 @@ export class PostsRepository implements Repository<Post> {
     this.token = token;
   }
   async create(item: FormData): Promise<Post> {
-    const url = this.urlBase + '/';
-    const response = await fetch(url, {
+    const response = await fetch(this.urlBase, {
       headers: {
         Authorization: `Bearer ${this.token}`,
-        'Content-Type': 'application/json',
       },
       method: 'POST',
       body: item,
