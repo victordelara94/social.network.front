@@ -6,7 +6,7 @@ export type Post = {
   title: string;
   description: string;
   author: User;
-  image: ImgData;
-  isPrivate: boolean;
   likes: number;
+  image: ImgData;
+  comments: Comment[];
 };
