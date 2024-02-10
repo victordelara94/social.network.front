@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { useUsers } from '../../../hooks/use.users';
 
 const Header = () => {
-  const { actualUser } = useUsers();
-  const logout = () => {
-    //setear actualUser a {} vacio
+  const { actualUser, setLogOut } = useUsers();
+  const handleLogOut = () => {
+    setLogOut();
   };
   return (
     <>
@@ -14,7 +14,7 @@ const Header = () => {
             <div>
               <Link to={'/home'}>Home</Link>
               <Link to={'/create-posts'}>Post</Link>
-              <Link to={'/login'} onClick={() => logout()}>
+              <Link to={'/login'} onClick={handleLogOut}>
                 LogOut
               </Link>
             </div>

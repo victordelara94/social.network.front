@@ -25,7 +25,12 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state) => {
+      state.actualUser.user = {} as User;
+      state.actualUser.token = '';
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       userLoadAllThunk.fulfilled,
