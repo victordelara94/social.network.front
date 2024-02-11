@@ -1,27 +1,34 @@
 import { Link } from 'react-router-dom';
 import { useUsers } from '../../../hooks/use.users';
-
+import styles from './header.module.scss';
 const Header = () => {
-  const { actualUser, setLogOut } = useUsers();
+  const { actualUser, setLogOut, deleteSearchedUser } = useUsers();
   const handleLogOut = () => {
     setLogOut();
   };
+  const handleDeleteSearchedUser = () => {
+    deleteSearchedUser();
+  };
   return (
-    <>
-      <header>
-        <nav>
-          {actualUser.token && (
-            <div>
-              <Link to={'/home'}>Home</Link>
-              <Link to={'/create-posts'}>Post</Link>
-              <Link to={'/login'} onClick={handleLogOut}>
-                LogOut
-              </Link>
-            </div>
-          )}
+    <header className={styles['header']}>
+      <h1 className={styles['title']}>SocialNet</h1>
+      {actualUser.token && (
+        <nav className={styles['nav']}>
+          <Link to={'/home'}>Home</Link>
+          <Link to={'/user-detail'} onClick={handleDeleteSearchedUser}>
+            Profile
+          </Link>
+          <Link to={'/create-posts'}>Post</Link>
+          <Link
+            className={styles['log-out']}
+            to={'/login'}
+            onClick={handleLogOut}
+          >
+            LogOut
+          </Link>
         </nav>
-      </header>
-    </>
+      )}
+    </header>
   );
 };
 export default Header;

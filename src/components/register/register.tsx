@@ -18,32 +18,32 @@ const Register = () => {
   return (
     <form role="form" onSubmit={handleSubmit} className={styles['form']}>
       <h2>¡Welcome to SocialNetwork!</h2>
-      <div className={styles['form']}>
-        <input
-          type="text"
-          placeholder="Username"
-          name="userName"
-          className={styles['textInput']}
-          required
-        />
+      <input
+        type="text"
+        placeholder="Username"
+        name="userName"
+        className={styles['textInput']}
+        required
+      />
 
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          className={styles['textInput']}
-          required
-        />
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        className={styles['textInput']}
+        required
+      />
 
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          className={styles['textInput']}
-          required
-        />
+      <input
+        type="email"
+        placeholder="Email"
+        name="email"
+        className={styles['textInput']}
+        required
+      />
 
-        <label htmlFor="file">Photo</label>
+      <label htmlFor="file">Photo</label>
+      <div className="file-box" id="src-box">
         <input
           id="file"
           type="file"

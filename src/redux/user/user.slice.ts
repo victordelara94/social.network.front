@@ -30,6 +30,9 @@ export const userSlice = createSlice({
       state.actualUser.user = {} as User;
       state.actualUser.token = '';
     },
+    cleanSearchedUser: (state) => {
+      state.searchedUser = {} as User;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(

@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  .title {
+    cursor: default;
+    font-size: 5rem;
+    background: -webkit-linear-gradient(rgb(10, 74, 142), rgb(0, 251, 255));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .title:hover {
+    transition: 600ms;
+    background: -webkit-linear-gradient(rgb(0, 251, 255), rgb(10, 74, 142));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .nav {
+    display: flex;
+    gap: 15px;
+    .log-out:hover {
+      transition: 400ms;
+      background-color: rgb(179, 49, 49);
+    }
+  }
+}
