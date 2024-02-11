@@ -1,13 +1,20 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { usePosts } from '../../hooks/use.posts';
 import { useUsers } from '../../hooks/use.users';
+import { User } from '../../models/user.model';
+import { actions } from '../../redux/user/user.slice';
+import { AppDispatch } from '../../store/store';
 import Search from '../search/search';
 import styles from './home.module.scss';
 const Home = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const {
     loadPosts,
     postState: { friendsPosts },
   } = usePosts();
+
   const { actualUser } = useUsers();
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +24,9 @@ const Home = () => {
     };
     fetchData();
   }, [actualUser, loadPosts]);
-
+  const selectUser = (user: User) => {
+    dispatch(actions.selectUser(user));
+  };
   return (
     <div className={styles['home']}>
       <Search></Search>
@@ -40,9 +49,11 @@ const Home = () => {
               <span>💬</span>
             </div>
             <span>
-              <strong>{post.author.userName}:</strong>
+              <Link to={'/user-detail'} onClick={() => selectUser(post.author)}>
+                <strong>{post.author.userName}</strong>
+              </Link>
               {post.description}
-            </span>
+            </span>{' '}
           </section>
         ))}
     </div>
