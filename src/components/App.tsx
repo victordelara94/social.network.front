@@ -7,6 +7,7 @@ function App() {
   return (
     <>
       <Header></Header>
+
       <main className={styles['main']}>
         <AppRoutes></AppRoutes>
       </main>

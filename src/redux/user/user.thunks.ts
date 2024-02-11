@@ -14,7 +14,7 @@ export const registerThunk = createAsyncThunk<
 export const loginThunk = createAsyncThunk<
   Logued,
   { repo: UsersRepository; login: Login }
->('user/update', async ({ repo, login }) => {
+>('user/login', async ({ repo, login }) => {
   const updateuser = repo.login(login);
   return updateuser;
 });
@@ -64,4 +64,17 @@ export const userDeleteThunk = createAsyncThunk<
   { repo: UsersRepository; token: string; id: string }
 >('user/delete', async ({ repo, token, id }) => {
   await repo.delete(token, id);
+});
+
+export const userUpdateThunk = createAsyncThunk<
+  User,
+  {
+    repo: UsersRepository;
+    id: string;
+    token: string;
+    partialUser: Partial<User>;
+  }
+>('user/update', async ({ repo, id, token, partialUser }) => {
+  const updatedUser = await repo.update(id, partialUser, token);
+  return updatedUser;
 });

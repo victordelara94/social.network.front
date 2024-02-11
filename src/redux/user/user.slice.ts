@@ -8,6 +8,7 @@ import {
   userLoadAllThunk,
   userSearchThunk,
   userUnfollowThunk,
+  userUpdateThunk,
 } from './user.thunks';
 
 export type UserState = {
@@ -75,7 +76,12 @@ export const userSlice = createSlice({
     builder.addCase(
       userUnfollowThunk.fulfilled,
       (state, { payload }: { payload: User }) => {
-        console.log(payload);
+        state.actualUser.user = payload;
+      }
+    );
+    builder.addCase(
+      userUpdateThunk.fulfilled,
+      (state, { payload }: { payload: User }) => {
         state.actualUser.user = payload;
       }
     );

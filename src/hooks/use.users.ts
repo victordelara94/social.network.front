@@ -9,6 +9,7 @@ import {
   userLoadAllThunk,
   userSearchThunk,
   userUnfollowThunk,
+  userUpdateThunk,
 } from '../redux/user/user.thunks';
 import { UsersRepository } from '../repositories/user.repository';
 import { AppDispatch, RootState } from '../store/store';
@@ -58,6 +59,12 @@ export function useUsers() {
     },
     [repo, usersDispatch]
   );
+  const updateUser = useCallback(
+    async (id: string, token: string, partialUser: Partial<User>) => {
+      usersDispatch(userUpdateThunk({ repo, id, token, partialUser }));
+    },
+    [repo, usersDispatch]
+  );
 
   return {
     users: usersState.users,
@@ -71,5 +78,6 @@ export function useUsers() {
     setLogOut,
     unfollowUser,
     deleteSearchedUser,
+    updateUser,
   };
 }
