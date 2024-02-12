@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Post } from '../../models/post.model';
 import {
+  postAddCommentThunk,
   postAddReactionThunk,
   postCreateThunk,
   postUpdateThunk,
@@ -58,6 +59,17 @@ export const postSlice = createSlice({
       postsSearchThunk.fulfilled,
       (state, { payload }: { payload: Post[] }) => {
         state.userPosts = payload;
+      }
+    );
+    builder.addCase(
+      postAddCommentThunk.fulfilled,
+      (state, { payload }: { payload: Post }) => {
+        state.userPosts = state.userPosts.map((post) =>
+          post.id === payload.id ? payload : post
+        );
+        state.friendsPosts = state.friendsPosts.map((post) =>
+          post.id === payload.id ? payload : post
+        );
       }
     );
   },

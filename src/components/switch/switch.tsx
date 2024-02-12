@@ -8,13 +8,9 @@ type Props = {
   onChange: (checked: boolean) => void;
   isPrivate: boolean;
 };
-export default function CustomizedSwitches(props: Props) {
-  const [state, setState] = React.useState({
-    checked: props.isPrivate,
-  });
 
+export default function SwitchIsPrivate(props: Props) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
     props.onChange(event.target.checked);
   };
 
@@ -49,7 +45,7 @@ export default function CustomizedSwitches(props: Props) {
         <FormControlLabel
           control={
             <Switch
-              checked={state.checked}
+              checked={props.isPrivate}
               onChange={handleChange}
               name="checkedA"
             />

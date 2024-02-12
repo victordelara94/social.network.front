@@ -1,4 +1,5 @@
 import { ImgData } from '../types/types';
+import { Comment } from './comments.model';
 import { User } from './user.model';
 
 export type Post = {

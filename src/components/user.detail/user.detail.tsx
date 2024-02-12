@@ -21,7 +21,7 @@ const UserDetail = () => {
       searchOwnPosts(userToDetail.id);
     }
   }, [searchedUser, actualUser, userToDetail, searchOwnPosts]);
-  console.log(userToDetail);
+
   const handleChange = (isChecked: boolean) => {
     updateUser(actualUser.user.id, actualUser.token, { isPrivate: isChecked });
   };
