@@ -67,9 +67,6 @@ export const postSlice = createSlice({
         state.userPosts = state.userPosts.map((post) =>
           post.id === payload.id ? payload : post
         );
-        state.friendsPosts = state.friendsPosts.map((post) =>
-          post.id === payload.id ? payload : post
-        );
       }
     );
   },
