@@ -10,44 +10,61 @@ import { AppDispatch } from '../../store/store';
 import AddComment from '../add.comment/add.comment';
 import Search from '../search/search';
 import styles from './home.module.scss';
+
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const [getIsOpen, setIsOpen] = useState(false);
   const {
     loadPosts,
     addReactionPost,
     addComentToPost,
     postState: { friendsPosts },
   } = usePosts();
-
   const { actualUser } = useUsers();
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [getIsOpenModal, setIsOpenModal] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       if (actualUser.token && actualUser.user.following.length > 0) {
         await loadPosts();
       }
     };
+
     fetchData();
-  }, [actualUser, loadPosts]);
+  }, [
+    actualUser.token,
+    actualUser.user.following.length,
+    getIsOpenModal,
+    loadPosts,
+  ]);
+
   const selectUser = (user: User) => {
     dispatch(actions.selectUser(user));
   };
-  const updateLikes = (post: Post, like: number) => {
+
+  const updateLikes = async (post: Post, like: number) => {
     const likes = post.likes + like;
-    addReactionPost({ likes: likes }, post.id);
-  };
-  const activateComment = () => {
-    setIsOpen(true);
-  };
-  const addCommentary = async (content: string, id: string) => {
-    await addComentToPost({ content: content }, id);
-    setIsOpen(false);
-  };
-  const handleCloseComment = () => {
-    setIsOpen(false);
+    addReactionPost({ likes }, post.id);
+    await loadPosts();
   };
 
+  const activateComment = () => {
+    setIsOpenModal(true);
+  };
+
+  const addCommentary = async (content: string, id: string) => {
+    await addComentToPost({ content }, id);
+    setIsOpenModal(false);
+    await loadPosts();
+  };
+
+  const handleCloseComment = () => {
+    setIsOpenModal(false);
+  };
+  const handleToggleDetails = () => {
+    setIsDetailsOpen(!isDetailsOpen);
+  };
   return (
     <div className={styles['home']}>
       <Search></Search>
@@ -87,27 +104,34 @@ const Home = () => {
               </span>
             </div>
             <span>
-              <Link to={'/user-detail'} onClick={() => selectUser(post.author)}>
-                {/* <strong>{post.author.userName.toLocaleUpperCase()}: </strong> */}
-              </Link>
+              {post.author.userName && (
+                <Link
+                  to={'/user-detail'}
+                  onClick={() => selectUser(post.author)}
+                >
+                  <strong>{post.author.userName.toLocaleUpperCase()}: </strong>
+                </Link>
+              )}
               {post.description.charAt(0).toLocaleUpperCase() +
                 post.description.slice(1)}
             </span>{' '}
-            {getIsOpen && (
+            {getIsOpenModal && (
               <AddComment
-                isOpen={getIsOpen}
+                isOpen={getIsOpenModal}
                 addComentary={addCommentary}
                 id={post.id}
                 onClose={handleCloseComment}
               ></AddComment>
             )}
             {post.comments.length > 0 && (
-              <details>
-                <summary>See comments</summary>
+              <details open={isDetailsOpen}>
+                <summary onClick={handleToggleDetails}>See comments</summary>
                 {post.comments.map((comment) => (
                   <div key={comment.id}>
                     <span>
-                      <strong>{comment.author.userName} </strong>
+                      <strong>
+                        {comment.author && comment.author.userName}{' '}
+                      </strong>
                       {comment.content}
                     </span>
                   </div>
