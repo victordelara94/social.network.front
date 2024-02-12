@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../models/user.model';
 import {
+  postAddReactionThunk,
   postCreateThunk,
   postUpdateThunk,
   postsLoadThunk,
@@ -47,6 +48,12 @@ export function usePosts() {
     },
     [repo, PostsDispatch]
   );
+  const addReactionPost = useCallback(
+    async (item: Partial<Post>, id: Post['id']) => {
+      PostsDispatch(postAddReactionThunk({ repo, id, item }));
+    },
+    [repo, PostsDispatch]
+  );
 
   return {
     postState: PostsState,
@@ -54,5 +61,6 @@ export function usePosts() {
     loadPosts,
     updatePost,
     createPost,
+    addReactionPost,
   };
 }

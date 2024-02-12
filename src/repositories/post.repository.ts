@@ -66,6 +66,21 @@ export class PostsRepository implements Repository<Post> {
     const data = await response.json();
     return data;
   }
+  async addReaction(id: string, item: Partial<Post>): Promise<Post> {
+    const url = this.urlBase + `/reaction/${id}`;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      body: JSON.stringify(item),
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok)
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    const data = await response.json();
+    return data;
+  }
 
   async delete(id: string): Promise<void> {
     const url = this.urlBase + '/' + id;

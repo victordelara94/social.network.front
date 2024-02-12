@@ -3,3 +3,22 @@
   gap: 5px;
   padding: 5px;
 }
+
+.searched-user {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  &_user {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+    .avatar-little {
+      background: white;
+      border-radius: 20px;
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+    }
+  }
+}

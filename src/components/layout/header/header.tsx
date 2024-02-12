@@ -14,11 +14,15 @@ const Header = () => {
       <h1 className={styles['title']}>SocialNet</h1>
       {actualUser.token && (
         <nav className={styles['nav']}>
-          <Link to={'/home'}>Home</Link>
+          <Link to={'/home'} onClick={handleDeleteSearchedUser}>
+            Home
+          </Link>
           <Link to={'/user-detail'} onClick={handleDeleteSearchedUser}>
             Profile
           </Link>
-          <Link to={'/create-posts'}>Post</Link>
+          <Link to={'/create-posts'} onClick={handleDeleteSearchedUser}>
+            Post
+          </Link>
           <Link
             className={styles['log-out']}
             to={'/login'}

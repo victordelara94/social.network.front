@@ -9,11 +9,24 @@
     gap: 5px;
     flex-direction: column;
     align-items: center;
+    .title {
+      text-decoration: underline;
+    }
     .likes-box {
       display: flex;
       gap: 5px;
       flex-direction: row;
       justify-content: space-around;
+      .reactions {
+        cursor: pointer;
+      }
+      .reactions:hover {
+        -webkit-transform: scale(1.25);
+        -moz-transform: scale(1.25);
+        -ms-transform: scale(1.25);
+        -o-transform: scale(1.25);
+        transform: scale(1.25);
+      }
     }
     .post-image {
       object-fit: cover;

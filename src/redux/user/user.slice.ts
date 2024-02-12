@@ -69,7 +69,6 @@ export const userSlice = createSlice({
     builder.addCase(
       userFollowThunk.fulfilled,
       (state, { payload }: { payload: User }) => {
-        console.log(payload);
         state.actualUser.user = payload;
       }
     );
