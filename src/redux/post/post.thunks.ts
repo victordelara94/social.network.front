@@ -34,3 +34,11 @@ export const postUpdateThunk = createAsyncThunk<
   const post = await repo.update(id, item);
   return post;
 });
+
+export const postAddReactionThunk = createAsyncThunk<
+  Post,
+  { repo: PostsRepository; id: Post['id']; item: Partial<Post> }
+>('post/reaction', async ({ repo, id, item }) => {
+  const post = await repo.addReaction(id, item);
+  return post;
+});

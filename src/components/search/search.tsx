@@ -15,7 +15,6 @@ const Search = () => {
     const value = formData.get('userName');
     const key = (formElement.firstChild as HTMLInputElement).name;
     searchUser(actualUser.token, key, value);
-    console.log(actualUser);
   };
 
   const startFollow = () => {
@@ -26,33 +25,42 @@ const Search = () => {
   };
 
   return (
-    <form onSubmit={handleForm} className={styles['search-form']}>
-      <input
-        className={styles.textInput}
-        type="text"
-        name="userName"
-        required
-      />
+    <>
+      <form onSubmit={handleForm} className={styles['search-form']}>
+        <input
+          className={styles.textInput}
+          type="text"
+          name="userName"
+          required
+        />
 
-      <button type="submit" className={styles.buttonSubmit}>
-        Search
-      </button>
+        <button type="submit" className={styles.buttonSubmit}>
+          Search
+        </button>
+      </form>
       {searchedUser.id && searchedUser.id !== actualUser.user.id && (
-        <div>
+        <div className={styles['searched-user']}>
           <h3>Searched user</h3>
-          <span>
-            <Link to={'/user-detail'}>{searchedUser.userName}</Link>
-          </span>
-          {!actualUser.user.following.find(
-            (user) => user.id === searchedUser.id
-          ) && <button onClick={() => startFollow()}>Follow</button>}
+          <div className={styles['searched-user_user']}>
+            <img
+              className={styles['avatar-little']}
+              src={searchedUser.avatar.url}
+              alt="User image"
+            />
+            <span>
+              <Link to={'/user-detail'}>{searchedUser.userName}</Link>
+            </span>
+            {!actualUser.user.following.find(
+              (user) => user.id === searchedUser.id
+            ) && <button onClick={() => startFollow()}>Follow</button>}
 
-          {actualUser.user.following.find(
-            (user) => user.id === searchedUser.id
-          ) && <button onClick={() => unFollow()}>Unfollow</button>}
+            {actualUser.user.following.find(
+              (user) => user.id === searchedUser.id
+            ) && <button onClick={() => unFollow()}>Unfollow</button>}
+          </div>
         </div>
       )}
-    </form>
+    </>
   );
 };
 
