@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../models/user.model';
 import {
+  postAddCommentThunk,
   postAddReactionThunk,
   postCreateThunk,
   postUpdateThunk,
@@ -9,17 +10,23 @@ import {
   postsSearchThunk,
 } from '../redux/post/post.thunks';
 
+import { Comment } from '../models/comments.model';
 import { Post } from '../models/post.model';
+import { CommentRepository } from '../repositories/comment.repository';
 import { PostsRepository } from '../repositories/post.repository';
 import { AppDispatch, RootState } from '../store/store';
 import { useUsers } from './use.users';
 
 export const urlBasePosts = 'http://localhost:3333/posts';
-
+export const urlBaseComments = 'http://localhost:3333/comments';
 export function usePosts() {
   const {
     actualUser: { token },
   } = useUsers();
+  const commentRepo = useMemo(
+    () => new CommentRepository(urlBaseComments, token),
+    [token]
+  );
   const repo = useMemo(() => new PostsRepository(urlBasePosts, token), [token]);
 
   const PostsState = useSelector((state: RootState) => state.post);
@@ -54,7 +61,12 @@ export function usePosts() {
     },
     [repo, PostsDispatch]
   );
-
+  const addComentToPost = useCallback(
+    async (item: Partial<Comment>, id: Post['id']) => {
+      PostsDispatch(postAddCommentThunk({ commentRepo, id, item }));
+    },
+    [commentRepo, PostsDispatch]
+  );
   return {
     postState: PostsState,
     searchOwnPosts,
@@ -62,5 +74,6 @@ export function usePosts() {
     updatePost,
     createPost,
     addReactionPost,
+    addComentToPost,
   };
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { usePosts } from '../../hooks/use.posts';
@@ -7,13 +7,17 @@ import { Post } from '../../models/post.model';
 import { User } from '../../models/user.model';
 import { actions } from '../../redux/user/user.slice';
 import { AppDispatch } from '../../store/store';
+import AddComment from '../add.comment/add.comment';
 import Search from '../search/search';
 import styles from './home.module.scss';
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
+
+  const [getIsOpen, setIsOpen] = useState(false);
   const {
     loadPosts,
     addReactionPost,
+    addComentToPost,
     postState: { friendsPosts },
   } = usePosts();
 
@@ -25,7 +29,7 @@ const Home = () => {
       }
     };
     fetchData();
-  }, [actualUser, loadPosts, friendsPosts]);
+  }, [actualUser, loadPosts]);
   const selectUser = (user: User) => {
     dispatch(actions.selectUser(user));
   };
@@ -33,6 +37,17 @@ const Home = () => {
     const likes = post.likes + like;
     addReactionPost({ likes: likes }, post.id);
   };
+  const activateComment = () => {
+    setIsOpen(true);
+  };
+  const addCommentary = async (content: string, id: string) => {
+    await addComentToPost({ content: content }, id);
+    setIsOpen(false);
+  };
+  const handleCloseComment = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className={styles['home']}>
       <Search></Search>
@@ -64,15 +79,41 @@ const Home = () => {
               >
                 👎
               </span>
-              <span className={styles['reactions']}>💬</span>
+              <span
+                className={styles['reactions']}
+                onClick={() => activateComment()}
+              >
+                💬
+              </span>
             </div>
             <span>
               <Link to={'/user-detail'} onClick={() => selectUser(post.author)}>
-                <strong>{post.author.userName.toLocaleUpperCase()}: </strong>
+                {/* <strong>{post.author.userName.toLocaleUpperCase()}: </strong> */}
               </Link>
               {post.description.charAt(0).toLocaleUpperCase() +
                 post.description.slice(1)}
             </span>{' '}
+            {getIsOpen && (
+              <AddComment
+                isOpen={getIsOpen}
+                addComentary={addCommentary}
+                id={post.id}
+                onClose={handleCloseComment}
+              ></AddComment>
+            )}
+            {post.comments.length > 0 && (
+              <details>
+                <summary>See comments</summary>
+                {post.comments.map((comment) => (
+                  <div key={comment.id}>
+                    <span>
+                      <strong>{comment.author.userName} </strong>
+                      {comment.content}
+                    </span>
+                  </div>
+                ))}
+              </details>
+            )}
           </section>
         ))}
     </div>
