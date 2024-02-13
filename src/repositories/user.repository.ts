@@ -70,7 +70,6 @@ export class UsersRepository implements Repository<User> {
     if (!response.ok)
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     const data: User[] = await response.json();
-    console.log(data);
     return data;
   }
   async follow(userToFollow: User, token: string): Promise<User> {

@@ -64,7 +64,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   border-radius: 3px;
-  content: 'Seleccionar'; /* testo por defecto */
+  content: 'Seleccionar';
   position: absolute;
   left: 0;
   right: 0;
@@ -80,6 +80,7 @@ button:hover {
 }
 #src-box::before {
   padding: 5px;
+  margin-left: 127px;
   border-radius: 10px;
   color: black;
   background-color: #ffffff;

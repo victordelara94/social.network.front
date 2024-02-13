@@ -8,9 +8,43 @@
     gap: 15px;
     display: flex;
     flex-direction: column;
+    max-width: 400px;
     .submit {
       width: 50px;
       align-self: center;
     }
+    // .file-box {
+    //   position: relative;
+    //   display: inline-block;
+    // }
+    // .file-box ::before {
+    //   color: white;
+    //   cursor: pointer;
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   border-radius: 3px;
+    //   content: 'Seleccionar';
+    //   position: absolute;
+    //   left: 0;
+    //   right: 0;
+    //   top: 0;
+    //   bottom: 0;
+    // }
+
+    // .file-box input[type='file'] {
+    //   opacity: 0;
+    //   width: 200px;
+    //   height: 32px;
+    //   display: inline-block;
+    // }
+    // #src-box::before {
+    //   padding: 5px;
+    //   margin-left: 127px;
+    //   border-radius: 10px;
+    //   color: black;
+    //   background-color: #ffffff;
+    //   content: 'Choose your photo';
+    // }
   }
 }
