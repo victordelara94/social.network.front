@@ -50,7 +50,6 @@ const Register = () => {
             type="file"
             placeholder="Select your avatar"
             name="avatar"
-            className={styles['fileInput']}
             accept="image/png, image/jpeg, image/webp"
           />
         </div>
