@@ -12,12 +12,10 @@ import {
 export type postState = {
   friendsPosts: Post[];
   userPosts: Post[];
-  actualPost: Post;
 };
 const initialState: postState = {
   friendsPosts: [],
   userPosts: [],
-  actualPost: {} as Post,
 };
 export const postSlice = createSlice({
   name: 'posts',
@@ -28,6 +26,12 @@ export const postSlice = createSlice({
       postsLoadThunk.fulfilled,
       (state, { payload }: { payload: Post[] }) => {
         state.friendsPosts = payload;
+      }
+    );
+    builder.addCase(
+      postsSearchThunk.fulfilled,
+      (state, { payload }: { payload: Post[] }) => {
+        state.userPosts = payload;
       }
     );
 
@@ -44,6 +48,9 @@ export const postSlice = createSlice({
         state.userPosts = state.userPosts.map((post) =>
           post.id === payload.id ? payload : post
         );
+        state.friendsPosts = state.friendsPosts.map((post) =>
+          post.id === payload.id ? payload : post
+        );
       }
     );
 
@@ -53,18 +60,18 @@ export const postSlice = createSlice({
         state.userPosts = state.userPosts.map((post) =>
           post.id === payload.id ? payload : post
         );
-      }
-    );
-    builder.addCase(
-      postsSearchThunk.fulfilled,
-      (state, { payload }: { payload: Post[] }) => {
-        state.userPosts = payload;
+        state.friendsPosts = state.friendsPosts.map((post) =>
+          post.id === payload.id ? payload : post
+        );
       }
     );
     builder.addCase(
       postAddCommentThunk.fulfilled,
       (state, { payload }: { payload: Post }) => {
         state.userPosts = state.userPosts.map((post) =>
+          post.id === payload.id ? payload : post
+        );
+        state.friendsPosts = state.friendsPosts.map((post) =>
           post.id === payload.id ? payload : post
         );
       }
