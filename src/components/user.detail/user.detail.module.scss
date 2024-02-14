@@ -20,25 +20,3 @@
     font-size: 45px;
   }
 }
-.user-content {
-  padding: 10px;
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.content-info {
-  display: flex;
-  gap: 5px;
-  flex-direction: column;
-  align-items: center;
-  .title {
-    text-decoration: underline;
-  }
-  .post-image {
-    object-fit: cover;
-    border-radius: 10px;
-    width: 250px;
-    height: 250px;
-  }
-}
